@@ -6,7 +6,6 @@ export default function SellMethodSection() {
   const [selectedOption, setSelectedOption] = useState<"copy" | "not" | "custom">("copy");
   const [takeProfit, setTakeProfit] = useState("");
   const [stopLoss, setStopLoss] = useState("");
-  const [trailingStop, setTrailingStop] = useState(false);
 
   return (
     <div className="flex flex-col gap-3">

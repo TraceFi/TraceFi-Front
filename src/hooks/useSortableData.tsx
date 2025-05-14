@@ -3,14 +3,14 @@ import { useState, useMemo } from "react";
 type SortKey = "volume" | "tvl" | "apy" | "fees" | "platform" | null;
 type SortOrder = "asc" | "desc" | null;
 
-export function useSortableData<T extends Record<string, any>>(data: T[]) {
+export function useSortableData<T extends Record<string, unknown>>(data: T[]) {
   const [sortKey, setSortKey] = useState<SortKey>(null);
   const [sortOrder, setSortOrder] = useState<SortOrder>(null);
 
   const sortedData = useMemo(() => {
     if (!sortKey || !sortOrder) return data;
 
-    const parseValue = (val: string | number) => {
+    const parseValue = (val: unknown) => {
       if (typeof val === "number") return val;
       if (typeof val === "string") {
         const cleaned = val.replace(/[$,%]/g, "").replace(",", "");
@@ -42,12 +42,12 @@ export function useSortableData<T extends Record<string, any>>(data: T[]) {
       setSortOrder("desc");
       return;
     }
-  
+
     if (sortOrder === "desc") {
       setSortOrder("asc");
       return;
     }
-  
+
     if (sortOrder === "asc") {
       setSortKey(null);
       setSortOrder(null);

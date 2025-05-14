@@ -1,5 +1,3 @@
-import { Info } from "lucide-react";
-
 interface Props {
   amount: string;
   setAmount: (val: string) => void;

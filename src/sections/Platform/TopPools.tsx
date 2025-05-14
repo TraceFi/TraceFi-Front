@@ -9,9 +9,20 @@ import LiquidityStepThree from "@/components/plataform/topPools/modal/StepThreeM
 import TableSearch from "@/components/plataform/topPools/table/TableSearch";
 import Toast from "@/components/ui/Toast";
 
+interface Pool {
+  poolName: string;
+  poolSymbol: string;
+  volume: string;
+  tvl: string;
+  apy: string;
+  fees: string;
+  platform: string;
+  iconUrl?: string;
+}
+
 export default function TopPools() {
   const [selectedFilter, setSelectedFilter] = useState("Personalized");
-  const [selectedPool, setSelectedPool] = useState<any>(null);
+  const [selectedPool, setSelectedPool] = useState<Pool | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [step, setStep] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
@@ -34,7 +45,7 @@ export default function TopPools() {
     setToastMessage("Pool criada com sucesso!");
   };
 
-  const handleSelectPool = (pool: any) => {
+  const handleSelectPool = (pool: Pool) => {
     setSelectedPool(pool);
     setStep(1);
     setIsModalOpen(true);
