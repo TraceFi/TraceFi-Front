@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import WalletInput from "@/components/plataform/copyTrading/copyForms/WalletInput";
-import AmountInputSection from "@/components/plataform/copyTrading/copyForms/AmountInput";
-import SellMethodSection from "@/components/plataform/copyTrading/copyForms/SellMethod";
-import AdvancedSettingsSection from "@/components/plataform/copyTrading/copyForms/AdvancedSettings";
+import WalletInput from "@/components/platform/copyTrading/copyForms/WalletInput";
+import AmountInputSection from "@/components/platform/copyTrading/copyForms/AmountInput";
+import SellMethodSection from "@/components/platform/copyTrading/copyForms/SellMethod";
+import AdvancedSettingsSection from "@/components/platform/copyTrading/copyForms/AdvancedSettings";
 
 interface Wallet {
   id: string;

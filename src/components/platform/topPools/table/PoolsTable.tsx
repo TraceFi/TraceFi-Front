@@ -5,7 +5,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import solIcon from "@/assets/hero/solanaLogo.png"
 import { usePagination } from "@/hooks/usePagination"
 import { useSortableData } from "@/hooks/useSortableData";
-import SortableHeader from "@/components/plataform/topPools/table/SortableHeader"
+import SortableHeader from "@/components/platform/topPools/table/SortableHeader"
 
 
 const pools = [

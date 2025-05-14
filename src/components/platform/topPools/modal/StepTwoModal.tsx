@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { ArrowLeft } from "lucide-react";
-import StrategyIcons from "@/components/plataform/topPools/modal/StrategyIcons";
+import StrategyIcons from "@/components/platform/topPools/modal/StrategyIcons";
 
 interface LiquidityStepTwoProps {
   poolName: string;

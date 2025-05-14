@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import CopiedWalletCard from "@/components/plataform/copyTrading/CopiedWalletCard";
-import CopyTradingSettings from "@/components/plataform/copyTrading/CopyTradingSettings";
+import CopiedWalletCard from "@/components/platform/copyTrading/CopiedWalletCard";
+import CopyTradingSettings from "@/components/platform/copyTrading/CopyTradingSettings";
 
 interface Wallet {
   id: string;

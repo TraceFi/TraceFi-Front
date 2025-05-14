@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import PoolsTable from "@/components/plataform/topPools/table/PoolsTable";
-import LiquidityStepOne from "@/components/plataform/topPools/modal/StepOneModal";
-import LiquidityStepTwo from "@/components/plataform/topPools/modal/StepTwoModal";
-import LiquidityStepThree from "@/components/plataform/topPools/modal/StepThreeModal";
-import TableSearch from "@/components/plataform/topPools/table/TableSearch";
+import PoolsTable from "@/components/platform/topPools/table/PoolsTable";
+import LiquidityStepOne from "@/components/platform/topPools/modal/StepOneModal";
+import LiquidityStepTwo from "@/components/platform/topPools/modal/StepTwoModal";
+import LiquidityStepThree from "@/components/platform/topPools/modal/StepThreeModal";
+import TableSearch from "@/components/platform/topPools/table/TableSearch";
 import Toast from "@/components/ui/Toast";
 
 interface Pool {
