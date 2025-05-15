@@ -1,4 +1,4 @@
-export const PLATFORM_BASE = "/Plataform";
+export const PLATFORM_BASE = "/Platform";
 
 export const PLATFORM_ROUTES = {
   TOP_POOLS: `${PLATFORM_BASE}/topPools`,

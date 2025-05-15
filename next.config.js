@@ -5,7 +5,7 @@ const nextConfig = {
         {
           source: '/',
           destination: '/LP',
-          permanent: false, // ou true se quiser que o navegador memorize (301)
+          permanent: false,
         },
       ];
     },
