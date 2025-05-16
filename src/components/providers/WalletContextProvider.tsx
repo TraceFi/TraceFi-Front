@@ -9,7 +9,6 @@ import { WalletAdapterNetwork, WalletError } from "@solana/wallet-adapter-base";
 import { PhantomWalletAdapter } from "@solana/wallet-adapter-wallets";
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
 
-// Descomentar se o modal da carteira estiver sem estilo
 require("@solana/wallet-adapter-react-ui/styles.css");
 
 interface WalletContextProviderProps {

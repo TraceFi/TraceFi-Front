@@ -7,14 +7,14 @@ import moon from "@/assets/hero/moon.png";
 export default function Hero() {
     return (
         <section className="text-white overflow-hidden h-[89vh] relative">
-            <div className="w-full xl:py-40 xl:px-16 2xl:px-24 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div className="w-full xl:py-40 xl:px-16 2xl:px-24 grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
                 <div>
                     <h1 className="xl:text-[78px] 2xl:text-[110px] leading-tight font-bold mb-8">
                         Automate.
                         <br />
                         Copy. Grow
                         <br />
-                        with TraceFi.
+                        with <span className="bg-gradient-to-r from-neon-green to-space-teal text-transparent bg-clip-text">TraceFi</span>.
                     </h1>
                     <p className="text-[40px] text-white/80 mb-10">
                         The first copytrade platform for liquidity pools.
@@ -35,6 +35,7 @@ export default function Hero() {
                     />
                 </div>
             </div>
+            <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-space-dark to-transparent z-0" />
         </section>
     );
 }

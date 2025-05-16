@@ -23,10 +23,17 @@ const config: Config = {
     		sans: [
     			'var(--font-inter)',
     			'sans-serif'
-    		]
+    		],
+    		tech: ['var(--font-rajdhani)', 'sans-serif']
     	},
     	extend: {
     		colors: {
+    			'lp-main-bg': '#2A4A52',
+    			'space-dark': '#0D1B2A',
+    			'neon-green': '#1FF2B2',
+    			'space-purple': '#7B2CBF',
+    			'space-yellow': '#FFD60A',
+    			'space-teal': '#00B4D8',
     			background: 'hsl(var(--background))',
     			foreground: 'hsl(var(--foreground))',
     			primary: {

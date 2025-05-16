@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Rajdhani } from "next/font/google";
 import "@/styles/globals.css";
 import WalletContextProvider from "@/components/providers/WalletContextProvider";
 
@@ -7,7 +7,13 @@ const inter = Inter({
     variable: "--font-inter",
     subsets: ["latin"],
     display: "swap",
-    axes: ["opsz"],
+});
+
+const rajdhani = Rajdhani({
+    variable: "--font-rajdhani",
+    subsets: ["latin"],
+    weight: ["400", "500", "600", "700"],
+    display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -26,7 +32,7 @@ export default function RootLayout({
     return (
         <html>
             <body
-                className={`${inter.variable} font-sans antialiased bg-neutral-950 text-white overflow-x-hidden`}
+                className={`${inter.variable} ${rajdhani.variable} font-sans antialiased bg-neutral-950 text-white overflow-x-hidden`}
             >
                 <WalletContextProvider>{children}</WalletContextProvider>
             </body>
