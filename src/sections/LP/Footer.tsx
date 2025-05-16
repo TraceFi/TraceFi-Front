@@ -69,7 +69,7 @@ export default function Footer() {
       </div>
       <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center px-10">
         <p className="text-xs text-gray-500 mb-4 md:mb-0">
-          &copy; {currentYear} TraceFi. Todos os direitos reservados.
+          &copy; {currentYear} TraceFi. All rights reserved.
         </p>
       </div>
     </footer>
