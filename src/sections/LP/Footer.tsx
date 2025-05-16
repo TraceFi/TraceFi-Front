@@ -9,15 +9,15 @@ export default function Footer() {
 
   const footerSections = [
     {
-      title: "Plataforma",
+      title: "Platform",
       links: [
-        { href: "/Platform/topPools", label: "Visão Geral", icon: null },
-        { href: "/Platform/topPools", label: "Pools em Alta", icon: null },
-        { href: "/Platform/how-it-works", label: "Como Funciona", icon: null },
+        { href: "/Platform/topPools", label: "Overview", icon: null },
+        { href: "/Platform/topPools", label: "Top Pools", icon: null },
+        { href: "/Platform/how-it-works", label: "How It Works", icon: null },
       ]
     },
     {
-      title: "Comunidade",
+      title: "Community",
       links: [
         { href: "#", label: "Discord", icon: <FaDiscord size={16} className="mr-2" /> },
         { href: "https://x.com/Trace_fi", label: "Twitter/X", icon: <Twitter size={16} className="mr-2" /> },
@@ -25,11 +25,11 @@ export default function Footer() {
       ]
     },
     {
-      title: "Recursos",
+      title: "Resources",
       links: [
-        { href: "/docs", label: "Documentação", icon: <BookText size={16} className="mr-2 inline" /> },
-        { href: "/terms", label: "Termos de Uso", icon: <ShieldCheck size={16} className="mr-2 inline" /> },
-        { href: "/privacy", label: "Política de Privacidade", icon: <ShieldCheck size={16} className="mr-2 inline" /> },
+        { href: "/docs", label: "Documentation", icon: <BookText size={16} className="mr-2 inline" /> },
+        { href: "/terms", label: "Terms of Use", icon: <ShieldCheck size={16} className="mr-2 inline" /> },
+        { href: "/privacy", label: "Privacy Policy", icon: <ShieldCheck size={16} className="mr-2 inline" /> },
       ]
     }
   ];
