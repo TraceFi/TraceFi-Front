@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import CopiedWalletCard from "@/components/platform/copyTrading/CopiedWalletCard";
 import CopyTradingSettings from "@/components/platform/copyTrading/CopyTradingSettings";
-import { Wallet } from "lucide-react";
+import { Wallet, LogOut } from "lucide-react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
+import { useWallet } from "@solana/wallet-adapter-react";
 
 interface WalletInterface {
   id: string;
@@ -18,7 +19,8 @@ interface WalletInterface {
 }
 
 export default function CopyTrading() {
-  const { setVisible } = useWalletModal();
+  const { setVisible: setModalVisible } = useWalletModal();
+  const { connected, publicKey, disconnect, wallet } = useWallet();
   const [copiedWallets, setCopiedWallets] = useState<WalletInterface[]>([]);
 
   const handleAddWallet = (wallet: WalletInterface) => {
@@ -40,21 +42,50 @@ export default function CopyTrading() {
   };
 
   const handleConnectWalletClick = () => {
-    setVisible(true);
+    setModalVisible(true);
   };
+
+  const handleDisconnectWalletClick = async () => {
+    try {
+      await disconnect();
+    } catch (error) {
+      console.error("Error disconnecting wallet:", error);
+    }
+  };
+
+  const formattedPublicKey = useMemo(() => {
+    if (!publicKey) return null;
+    const base58 = publicKey.toBase58();
+    return `${base58.slice(0, 4)}...${base58.slice(-4)}`;
+  }, [publicKey]);
 
   return (
     <div className="flex flex-1 overflow-hidden h-full">
       <div className="flex-1 flex flex-col bg-[var(--color-platform-hero-background)] overflow-y-auto">
         <div className="px-8 pt-8 pb-4 flex justify-between items-center">
           <h1 className="text-white text-[28px] md:text-[32px] font-bold">Copy Trading</h1>
-          <button
-            onClick={handleConnectWalletClick}
-            className="bg-teal-500 hover:bg-teal-600 text-white font-medium py-2.5 px-5 rounded-xl flex items-center gap-2 transition-colors duration-150 text-sm"
-          >
-            <Wallet size={18} />
-            Connect Wallet
-          </button>
+          {!connected ? (
+            <button
+              onClick={handleConnectWalletClick}
+              className="bg-teal-500 hover:bg-teal-600 text-white font-medium py-2.5 px-5 rounded-xl flex items-center gap-2 transition-colors duration-150 text-sm"
+            >
+              <Wallet size={18} />
+              Connect Wallet
+            </button>
+          ) : (
+            <div className="flex items-center gap-3">
+              <span className="text-white/70 text-sm font-medium bg-[var(--color-platform-tableElements-background)] px-3 py-2.5 rounded-xl">
+                {formattedPublicKey}
+              </span>
+              <button
+                onClick={handleDisconnectWalletClick}
+                title="Disconnect Wallet"
+                className="bg-red-600 hover:bg-red-700 text-white font-medium p-2.5 rounded-xl flex items-center justify-center transition-colors duration-150"
+              >
+                <LogOut size={18} />
+              </button>
+            </div>
+          )}
         </div>
         <div className="flex-1 p-8 pt-4 flex flex-col gap-4">
           {copiedWallets.map((wallet) => (

@@ -52,7 +52,7 @@ export default function AdvancedSettingsSection({ showAdvanced, toggleAdvanced }
           </div>
 
           <div className="flex gap-2 flex-wrap">
-            {["Pump", "Raydium", "Moonshot", "Others"].map((platform) => (
+            {["Meteora", "Orca", "Raydium", "Others"].map((platform) => (
               <button
                 key={platform}
                 className="border border-white/10 px-3 py-1 rounded-full text-sm hover:border-white transition"

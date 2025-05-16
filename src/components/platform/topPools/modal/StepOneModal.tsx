@@ -1,5 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 
 interface LiquidityStepOneProps {
   pool: {
@@ -27,6 +29,9 @@ export default function LiquidityStepOne({
   onNext,
 }: LiquidityStepOneProps) {
   const [error, setError] = useState("");
+  const { connection } = useConnection();
+  const { publicKey, connected } = useWallet();
+  const [solBalance, setSolBalance] = useState<number | null>(null);
 
   const isSolOnly = liquidityType === "sol";
   const isTokenOnly = liquidityType === "token";
@@ -37,6 +42,19 @@ export default function LiquidityStepOne({
     (liquidityType === "sol" && isSolValid) ||
     (liquidityType === "token" && isTokenValid) ||
     (liquidityType === "double" && isSolValid && isTokenValid);
+
+    useEffect(() => {
+      if (connected && publicKey && connection) {
+        connection.getBalance(publicKey)
+          .then(balance => setSolBalance(balance / LAMPORTS_PER_SOL))
+          .catch(err => {
+            console.error("Error fetching SOL balance:", err);
+            setSolBalance(null);
+          });
+      } else {
+        setSolBalance(null);
+      }
+    }, [connected, publicKey, connection]);
 
   const handleNext = () => {
     if (!isValid) {
@@ -51,7 +69,16 @@ export default function LiquidityStepOne({
   const handleNumericChange = (e: React.ChangeEvent<HTMLInputElement>, setter: (value: string) => void) => {
     const value = e.target.value;
     if (/^[0-9]*[.,]?[0-9]*$/.test(value)) {
-      setter(value);
+      setter(value.replace(",", "."));
+    }
+  };
+
+  const handlePercentageClick = (percentage: number) => {
+    if (solBalance !== null) {
+      const amount = solBalance * (percentage / 100);
+      if (!isTokenOnly) {
+        setSolAmount(amount.toFixed(9));
+      }
     }
   };
 
@@ -104,17 +131,26 @@ export default function LiquidityStepOne({
         />
       </div>
 
-      <p className="text-sm text-white/50">Balance: 0.82356984 SOL</p>
+      <p className="text-sm text-white/50">
+        Balance: {solBalance !== null ? solBalance.toFixed(6) + " SOL" : "Loading..."}
+      </p>
 
       <div className="flex gap-2">
-        {["25%", "50%", "75%", "MAX"].map((label) => (
+        {[
+          { label: "25%", value: 25 },
+          { label: "50%", value: 50 },
+          { label: "75%", value: 75 },
+          { label: "MAX", value: 100 }
+        ].map(({ label, value }) => (
           <button
             key={label}
-            onClick={() => {
-              if (!isSolOnly) setTokenAmount("100");
-              if (!isTokenOnly) setSolAmount("0.5");
-            }}
-            className="flex-1 rounded-xl border border-white/20 py-1 text-sm hover:border-white/40 transition"
+            onClick={() => handlePercentageClick(value)}
+            disabled={solBalance === null || isTokenOnly}
+            className={`flex-1 rounded-xl border py-1 text-sm transition ${
+              (solBalance === null || isTokenOnly)
+                ? "border-white/10 text-white/30 cursor-not-allowed"
+                : "border-white/20 hover:border-white/40 text-white"
+            }`}
           >
             {label}
           </button>

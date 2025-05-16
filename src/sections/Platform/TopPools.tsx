@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import PoolsTable from "@/components/platform/topPools/table/PoolsTable";
 import LiquidityStepOne from "@/components/platform/topPools/modal/StepOneModal";
@@ -8,8 +8,9 @@ import LiquidityStepTwo from "@/components/platform/topPools/modal/StepTwoModal"
 import LiquidityStepThree from "@/components/platform/topPools/modal/StepThreeModal";
 import TableSearch from "@/components/platform/topPools/table/TableSearch";
 import Toast from "@/components/ui/Toast";
-import { Wallet } from "lucide-react";
+import { Wallet, LogOut } from "lucide-react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
+import { useWallet } from "@solana/wallet-adapter-react";
 
 interface Pool {
   poolName: string;
@@ -23,7 +24,8 @@ interface Pool {
 }
 
 export default function TopPools() {
-  const { setVisible } = useWalletModal();
+  const { setVisible: setModalVisible } = useWalletModal();
+  const { connected, publicKey, disconnect, wallet } = useWallet();
   const [selectedFilter, setSelectedFilter] = useState("Personalized");
   const [selectedPool, setSelectedPool] = useState<Pool | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -68,20 +70,49 @@ export default function TopPools() {
   };
 
   const handleConnectWalletClick = () => {
-    setVisible(true);
+    setModalVisible(true);
   };
+
+  const handleDisconnectWalletClick = async () => {
+    try {
+      await disconnect();
+    } catch (error) {
+      console.error("Error disconnecting wallet:", error);
+    }
+  };
+
+  const formattedPublicKey = useMemo(() => {
+    if (!publicKey) return null;
+    const base58 = publicKey.toBase58();
+    return `${base58.slice(0, 4)}...${base58.slice(-4)}`;
+  }, [publicKey]);
 
   return (
     <div className="flex-1 flex flex-col overflow-hidden h-full">
       <div className="bg-transparent px-6 md:px-12 py-4 flex justify-between items-center">
         <h1 className="text-white text-[28px] md:text-[32px] font-bold">Top Pools</h1>
-        <button
-          onClick={handleConnectWalletClick}
-          className="bg-teal-500 hover:bg-teal-600 text-white font-medium py-2.5 px-5 rounded-xl flex items-center gap-2 transition-colors duration-150 text-sm"
-        >
-          <Wallet size={18} />
-          Connect Wallet
-        </button>
+        {!connected ? (
+          <button
+            onClick={handleConnectWalletClick}
+            className="bg-teal-500 hover:bg-teal-600 text-white font-medium py-2.5 px-5 rounded-xl flex items-center gap-2 transition-colors duration-150 text-sm"
+          >
+            <Wallet size={18} />
+            Connect Wallet
+          </button>
+        ) : (
+          <div className="flex items-center gap-3">
+            <span className="text-white/70 text-sm font-medium bg-[var(--color-platform-tableElements-background)] px-3 py-2.5 rounded-xl">
+              {formattedPublicKey}
+            </span>
+            <button
+              onClick={handleDisconnectWalletClick}
+              title="Disconnect Wallet"
+              className="bg-red-600 hover:bg-red-700 text-white font-medium p-2.5 rounded-xl flex items-center justify-center transition-colors duration-150"
+            >
+              <LogOut size={18} />
+            </button>
+          </div>
+        )}
       </div>
       <section className="flex-1 overflow-y-auto bg-[var(--color-platform-hero-background)] py-8 px-6 md:px-12">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-12">
